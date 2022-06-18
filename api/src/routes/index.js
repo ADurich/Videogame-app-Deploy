@@ -260,22 +260,24 @@ router.get('/order/:name',async(req,res)=>{
 })
 
 router.get('/videogamesPlatforms',async(req,res)=>{
-  const videogamesList=await getAllCharacters();
-  var allPlatforms=[];
-  var noRepeteadesPlatforms=[];
   
-  videogamesList.map(el=>{
-     el.platforms.map(platform=>{
-      allPlatforms.push(platform)
-    })
-  })
-
-    for(let i=0;i<allPlatforms.length;i++){
-      if(noRepeteadesPlatforms.indexOf(allPlatforms[i])===-1){
-        noRepeteadesPlatforms.push(allPlatforms[i])
-      }
-    }
-
+let noRepeteadesPlatforms=[
+"PlayStation 4",
+"macOS",
+"PC",
+"Xbox One",
+"Xbox 360",
+"PlayStation 3",
+"Nintendo Switch",
+"PlayStation 5",
+"Xbox Series S/X",
+"Linux",
+"Xbox",
+"Android",
+"iOS",
+"PS Vita",
+"Web",
+]
   res.status(200).send(noRepeteadesPlatforms)
   
 })
