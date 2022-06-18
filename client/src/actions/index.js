@@ -133,3 +133,12 @@ export function getFilteredPlatforms(platform) {
     return dispatch({type:"GET_FILTERED_PLATFORMS",payload:videogamesPlatforms.data});
   };
 }
+
+export function getAlgo() {     
+   return async function(dispatch){
+
+    var algo=await axios("/algo");
+
+    return dispatch({type:"GET_ALGO",payload:algo.data});
+  };
+}

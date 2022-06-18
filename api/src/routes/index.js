@@ -76,6 +76,11 @@ const getAllCharacters=async()=>{
   return dbInfo;
 }
 
+router.get('/algo',async(req,res)=>{
+  let palabra="sdafasasgasga";
+  res.status(200).send(palabra)
+})
+
 router.get('/videogames',async(req,res)=>{
   const name=req.query.name
   let videogamesList=await getAllCharacters();
