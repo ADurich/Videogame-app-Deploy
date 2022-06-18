@@ -77,7 +77,14 @@ const getAllCharacters=async()=>{
 }
 
 router.get('/videogames',async(req,res)=>{
-  const name=req.query.name
+  let videogamesList=await getAllCharacters();
+  //let videogamesList=await infoFromApi();
+ 
+    res.status(200).send(videogamesList);
+})
+
+router.get('/videogames/:name',async(req,res)=>{
+  const name=req.params.name;
   let videogamesList=await getAllCharacters();
   //let videogamesList=await infoFromApi();
   var videogameName=[];
@@ -85,7 +92,6 @@ router.get('/videogames',async(req,res)=>{
   var separateWords;
   var separateWords2;
   var checkElement;
-  if(name){ 
 
     videogamesList.map(el=>{
       joinWords=[];
@@ -130,9 +136,9 @@ router.get('/videogames',async(req,res)=>{
     res.status(200).send(videogameName):
     res.status(200).send([]);
     //res.status(404).send("No está el personaje"); 
-  }else{
-    res.status(200).send(videogamesList);
-  }
+  
+  
+  
 })
 
 router.get('/platforms',async(req,res)=>{
