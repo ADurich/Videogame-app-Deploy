@@ -7,36 +7,54 @@ const { API_KEY } = process.env;
 
 const router = Router();
 
-const infoFromApi=async()=>{
+router.get('/apidb',async(req,res)=>{
 
   var infoUrl;
-  var apiInfo;
-  //var apiInfoTotal=[];
+  var myGame;
+  
+  for(let i=1;i<=1;i++){
+    infoUrl=await axios.get(`https://api.rawg.io/api/games?page=${i}&&key=${API_KEY}`) 
 
-  for(let i=1;i<=1;i++){ 
+    await infoUrl.data.results.map(async (el)=>{
 
-    infoUrl=await axios.get(`https://api.rawg.io/api/games?page=${i}&&key=${API_KEY}`)
-    apiInfo=await infoUrl.data.results.map((el)=>{
+      let idToString=el.id.toString();
+      myGame=await axios.get(`https://api.rawg.io/api/games/${idToString}?key=${API_KEY}`)
 
-      
-      
-          return{
-            id: el.id,
-            name: el.name,
-            description:'sdasd',
-            platforms: el.platforms.map(el=>el.platform.name),  
+
+      let insertedVideogame = await Videogame.create({
+        
+            name:el.name,
+            description:myGame.data.description_raw,
+            platforms:el.platforms.map(el=>el.platform.name),
             img:el.background_image,
-            genres: el.genres.map(el=>el.name),
             released:el.released,
             source:'api',
-          }         
-  });
-    
-    //apiInfoTotal=apiInfoTotal.concat(apiInfo);
+        
+        
+          })
+      let genres= await el.genres.map(el=>el.name)
+
+
+      genres.map(el=>{
+
+         Genre.findOrCreate({ 
+          where:{name:el} 
+        });
+      })
+        
+      let genreDb=await Genre.findAll({
+        where: {name:genres}
+      })
+
+      insertedVideogame.addGenre(genreDb);
+
+      });
+
   }
 
-  return apiInfo;
-};
+  res.status(200).send("videojuegos de la api pasados a la base de datos");
+  
+})
 
 const infoFromDb=async()=>{
   return await Videogame.findAll({
@@ -52,10 +70,10 @@ const infoFromDb=async()=>{
 }
 
 const getAllCharacters=async()=>{
-  const apiInfo=await infoFromApi();
+  //await infoFromApi();
   const dbInfo=await infoFromDb();
-  const infoTotal=apiInfo.concat(dbInfo);
-  return infoTotal;
+  //const infoTotal=apiInfo.concat(dbInfo);
+  return dbInfo;
 }
 
 router.get('/videogames',async(req,res)=>{
