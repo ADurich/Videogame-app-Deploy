@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames,getGenres,getPageNumber,getInitialPageNumber,getBackPage,getVideogamesPlatforms,getAlgo} from "../actions/index";
+import { getVideogames,getGenres,getPageNumber,getInitialPageNumber,getBackPage,getVideogamesPlatforms} from "../actions/index";
 import Card from "./Card";
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
@@ -20,7 +20,6 @@ export default function Home() {
 
      useEffect(() => {
        dispatch(getVideogames());
-       dispatch(getAlgo());
    }, []);
 
 //-------------------------------------------------------------
@@ -28,9 +27,7 @@ export default function Home() {
      var pageNumber=useSelector((state)=> state.pageNumber);
      var backPageNumber=useSelector((state)=>state.backPageNumber)
      var initialPageNumber=useSelector((state)=>state.initialPageNumber)
-     var palabra=useSelector((state)=>state.algo)
      console.log("mis videojuegos",allVideogames) 
-     console.log(palabra) 
 
      const [currentPage,setCurrentPage]= useState(1);
      const [videogamesPerPage,setVideogamesPerPage]= useState(9);
@@ -104,9 +101,9 @@ export default function Home() {
               </Box>:
               null} 
 
-              <footer>
-                  &copy; 2022
-              </footer>             
+              {/*<footer>
+                   &copy; 2022
+                </footer>*/}             
       </div>
   );
 }

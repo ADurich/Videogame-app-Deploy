@@ -135,15 +135,7 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 videogames:filteredPlatforms,
 
-            }
-        case "GET_ALGO":
-            const aver=action.payload;
-
-            return{
-                ...state,
-                algo:aver,
-
-            }                  
+            }                      
 
     	default:
     		return state;

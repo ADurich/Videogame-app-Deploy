@@ -76,11 +76,6 @@ const getAllCharacters=async()=>{
   return dbInfo;
 }
 
-router.get('/algo',async(req,res)=>{
-  let palabra=[{platforms:["PC","Xbox One"]}];
-  res.status(200).send(palabra)
-})
-
 router.get('/videogames',async(req,res)=>{
   const name=req.query.name
   let videogamesList=await getAllCharacters();
@@ -133,8 +128,7 @@ router.get('/videogames',async(req,res)=>{
 
     videogameName.length ?
     res.status(200).send(videogameName):
-    videogameName=[];
-    res.status(200).send(videogameName)
+    res.status(200).send([]);
     //res.status(404).send("No está el personaje"); 
   }else{
     res.status(200).send(videogamesList);
