@@ -25,10 +25,10 @@ router.get('/apidb',async(req,res)=>{
         
             name:el.name,
             description:myGame.data.description_raw,
-              platforms:el.platforms.map(el=>el.platform.name),
-              img:el.background_image,
-              released:el.released,
-              source:'api',
+            platforms:el.platforms.map(el=>el.platform.name),
+            img:el.background_image,
+            released:el.released,
+            source:'api',
         
         
           })
@@ -88,7 +88,6 @@ router.get('/videogames',async(req,res)=>{
   if(name){ 
 
     videogamesList.map(el=>{
-      el['make']  = 'Ford';
       joinWords=[];
       separateWords=el.name.split(" ");
       numberOfWords=separateWords.length;
