@@ -20,7 +20,6 @@ export default function Home() {
 
      useEffect(() => {
        dispatch(getVideogames());
-       dispatch(getVideogamesPlatforms());
    }, []);
 
 //-------------------------------------------------------------
@@ -68,7 +67,7 @@ export default function Home() {
           <SearchBar />      
       {/*----------------GÉNEROS------------------------------------*/}    
           <Genre />
-      {/*----------------GÉNEROS------------------------------------*/}    
+      {/*----------------PLATAFORMAS------------------------------------*/}    
           <Platforms />    
       {/*------------------ORDENAR---------------------------------*/}  
           <Order />  
