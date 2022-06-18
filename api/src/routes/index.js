@@ -76,8 +76,8 @@ const getAllCharacters=async()=>{
   return dbInfo;
 }
 
-router.get('/videogames',async(req,res)=>{
-  const name=req.query.name
+router.get('/videogames/:name',async(req,res)=>{
+  const name=req.params.name;
   let videogamesList=await getAllCharacters();
   //let videogamesList=await infoFromApi();
   var videogameName=[];
