@@ -25,7 +25,6 @@ export default function Platforms(){
    }, []);
 
      const allPlatforms=useSelector((state)=> state.videogamesPlatforms);
-     console.log(allPlatforms)
 
   return(
 

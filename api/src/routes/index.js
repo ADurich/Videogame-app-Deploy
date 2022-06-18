@@ -142,33 +142,91 @@ router.get('/videogames',async(req,res)=>{
 })
 
 router.get('/platforms',async(req,res)=>{
-  let platformsApi= await axios.get(`https://api.rawg.io/api/platforms?key=${API_KEY}`)
-  let platformsName=platformsApi.data.results.map(el=>{
-    return el.name;
-  })
+  let platformsName=[
+   "PC",
+   "PlayStation 5",
+   "Xbox One",
+   "PlayStation 4",
+   "Xbox Series S/X",
+   "Nintendo Switch",
+   "iOS",
+   "Android",
+   "Nintendo 3DS",
+   "Nintendo DS",
+   "Nintendo DSi",
+   "macOS",
+   "Linux",
+   "Xbox 360",
+   "Xbox",
+   "PlayStation 3",
+   "PlayStation 2",
+   "PlayStation",
+   "PS Vita",
+   "PSP",
+   "Wii U",
+   "Wii",
+   "GameCube",
+   "Nintendo 64",
+   "Game Boy Advance",
+   "Game Boy Color",
+   "Game Boy",
+   "SNES",
+   "NES",
+   "Classic Macintosh",
+   "Apple II",
+   "Commodore / Amiga",
+   "Atari 7800",
+   "Atari 5200",
+   "Atari 2600",
+   "Atari Flashback",
+   "Atari 8-bit",
+   "Atari ST",
+   "Atari Lynx",
+   "Atari XEGS",
+   "Genesis",
+   "SEGA Saturn",
+   "SEGA CD",
+   "SEGA 32X",
+   "SEGA Master System",
+   "Dreamcast",
+   "3DO",
+   "Jaguar",
+   "Game Gear",
+   "Neo Geo",
+  ]
+
   res.status(200).send(platformsName)
 })
 
 router.get('/genres',async (req,res)=> {
-    const genreApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-    const genreNames = genreApi.data.results.map(el =>{
-      return el.name
-    })
-
-    /*genreNames.forEach(el=>{
-      Genre.findOrCreate({
-        where:{name:el}
-      })
-    })*/
-
-    //const AllGenre=await Genre.findAll();
-    res.send(genreNames);
+    let genreNames=[
+     "Action",
+     "Indie",
+     "Adventure",
+     "RPG",
+     "Strategy",
+     "Shooter",
+     "Casual",
+     "Simulation",
+     "Puzzle",
+     "Arcade",
+     "Platformer",
+     "Racing",
+     "Massively Multiplayer",
+     "Sports",
+     "Fighting",
+     "Family",
+     "Board Games",
+     "Educational",
+     "Card",
+    ]
+    res.status(200).send(genreNames);
 })
 
 router.get('/genresFromDb',async (req,res)=> {
 
     const allGenres=await Genre.findAll();
-    res.send(allGenres);
+    res.status(200).send(allGenres);
 })
 
 router.post('/videogame',async(req,res)=>{
