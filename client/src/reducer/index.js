@@ -27,9 +27,50 @@ function rootReducer(state = initialState, action) {
     		}
 
         case 'GET_NAME_VIDEOGAMES':
+              var myVideogamess = state.allVideogames
+              var searchName=action.payload;
+              var searchbarGames;
+
+              var videogameName=[];
+              var joinWords;
+              var separateWords;
+              var numberOfWords;
+              var checkElement;
+
+              myVideogamess.map(el=>{
+                  joinWords=[];
+                  separateWords=el.name.split(" ");
+                  numberOfWords=separateWords.length;
+                  checkElement=false;
+                  let separateDate=el.released.split("-")
+
+                  for (let i=0; i<numberOfWords; i++) {
+                    joinWords.push(separateWords.join(" "))
+                    separateWords.shift();
+                    if(joinWords[i].toLowerCase().startsWith(searchName.toLowerCase())&&!checkElement){     
+                      videogameName.push(el)
+                      checkElement=true;
+                    }
+                  }
+
+                  el.platforms.map(platform=>{
+                    if(platform.toLowerCase()===searchName.toLowerCase()&&!checkElement){
+                      videogameName.push(el)
+                    }
+                  })  
+
+                  if(separateDate[0]===searchName&&!checkElement){
+                    videogameName.push(el)
+                  }   
+                })
+
+              videogameName.length ?
+              searchbarGames=videogameName:
+              searchbarGames=[];
+
             return{
                 ...state, 
-                videogames:action.payload 
+                videogames:searchbarGames 
             }
 
         case "POST_VIDEOGAME":

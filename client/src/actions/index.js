@@ -12,10 +12,10 @@ export function getNameVideogames(name){
   return async function(dispatch){
 
 
-      var jsonName=await axios.get("/videogames/"+name);
+      //var jsonName=await axios.get("/videogames?name="+name);
       return dispatch({
         type:"GET_NAME_VIDEOGAMES",
-        payload:jsonName.data
+        payload:name
       })
   }
 }

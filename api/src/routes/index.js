@@ -77,67 +77,10 @@ const getAllCharacters=async()=>{
 }
 
 router.get('/videogames',async(req,res)=>{
+  //const name=req.query.name
   let videogamesList=await getAllCharacters();
   //let videogamesList=await infoFromApi();
- 
-    res.status(200).send(videogamesList);
-})
-
-router.get('/videogames/:name',async(req,res)=>{
-  const name=req.params.name;
-  let videogamesList=await getAllCharacters();
-  //let videogamesList=await infoFromApi();
-  var videogameName=[];
-  var joinWords;
-  var separateWords;
-  var separateWords2;
-  var checkElement;
-
-    videogamesList.map(el=>{
-      joinWords=[];
-      separateWords=el.name.split(" ");
-      numberOfWords=separateWords.length;
-      checkElement=false;
-      let separateDate=el.released.split("-")
-
-      for (let i=0; i<numberOfWords; i++) {
-        joinWords.push(separateWords.join(" "))
-        separateWords.shift();
-        if(joinWords[i].toLowerCase().startsWith(name.toLowerCase())&&!checkElement){     
-          videogameName.push(el)
-          checkElement=true;
-        }
-      }
-
-      el.platforms.map(platform=>{
-        if(platform.toLowerCase()===name.toLowerCase()&&!checkElement){
-          videogameName.push(el)
-        }
-      })  
-
-      if(separateDate[0]===name&&!checkElement){
-        videogameName.push(el)
-      }   
-    })
-
-    
-    /*
-    1-no olvidar el tema del obj que no me funciona y el img no
-    5-traer desde la api primero
-    7-Anotar toda la logica que uso
-    9- en github en pasos a seguir recordar poenr que tiener usar en postman el /apidb
-    10-IMPORTANTE. TODO LO COMENTADO QUEDA ACA PERO NO SE SUBE A GIT SALVO EXCEPCIONES
-    11-ver como funciona el creado de las tablas,las relaciones, sequalize en general.
-    12-ver si puedo corregir en cards lo que estoy repitiendo de home
-    */
-
-
-    videogameName.length ?
-    res.status(200).send(videogameName):
-    res.status(200).send([]);
-    //res.status(404).send("No está el personaje"); 
-  
-  
+  res.status(200).send(videogamesList);
   
 })
 
