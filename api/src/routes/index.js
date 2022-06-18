@@ -77,7 +77,7 @@ const getAllCharacters=async()=>{
 }
 
 router.get('/algo',async(req,res)=>{
-  let palabra="sdafasasgasga";
+  let palabra=[{platforms:["PC","Xbox One"]}];
   res.status(200).send(palabra)
 })
 
