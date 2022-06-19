@@ -50,7 +50,8 @@ export default function VideogameCreate(){
         description: "",
         platforms:[],
         genre:[],
-        img:""
+        img:"",
+        released:""
     })
 	
 
@@ -119,7 +120,8 @@ const handleSubmit = (event) => {
                         description: "",
                         genre:[],
                         platforms:[],
-                        img:""
+                        img:"",
+                        released:""
                     });
                     setPlatform([]);
                     setGenres([]);
@@ -184,6 +186,18 @@ const handleSubmit = (event) => {
 			              id="password"
 			              autoComplete="current-password"
 			              value= {newVideogame.img}
+                          onChange={(e)=>handleChange(e)}
+			            />
+			            <TextField
+			              margin="normal"
+			              required
+			              fullWidth
+			              name="released"
+			              label="Fecha de creación"
+			              type="text"
+			              id="password"
+			              autoComplete="current-password"
+			              value= {newVideogame.released}
                           onChange={(e)=>handleChange(e)}
 			            />
 			            <FormControl fullWidth margin="normal">

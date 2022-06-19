@@ -180,6 +180,7 @@ router.post('/videogame',async(req,res)=>{
     platforms,
     genre,
     img,
+    released,
 
   }=req.body
 
@@ -188,6 +189,7 @@ router.post('/videogame',async(req,res)=>{
     description,
     platforms,
     img,
+    released,
   })
   
   Array.isArray(genre)?
