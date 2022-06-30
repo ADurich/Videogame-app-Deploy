@@ -1,7 +1,7 @@
 import React from "react";
 import {useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogamesPlatforms,getFilteredPlatforms,getPageNumber,getInitialPageNumber} from "../actions/index";
+import { getVideogamesPlatforms,getFilteredPlatforms,getPageNumber,getInitialPageNumber,getBackPage} from "../actions/index";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -16,6 +16,7 @@ export default function Platforms(){
     	dispatch(getFilteredPlatforms(event.target.value));
     	dispatch(getPageNumber(1)) ;
     	dispatch(getInitialPageNumber(1));
+    	dispatch(getBackPage(false));
     };
 
 	const dispatch = useDispatch();

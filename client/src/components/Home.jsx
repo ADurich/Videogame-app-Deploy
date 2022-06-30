@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogames,getGenres,getPageNumber,getInitialPageNumber,getBackPage,getVideogamesPlatforms} from "../actions/index";
+import { getVideogames,getGenres,getPageNumber,getInitialPageNumber,getBackPage,getNotModifiedPageNumber} from "../actions/index";
 import Card from "./Card";
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
@@ -25,21 +25,28 @@ export default function Home() {
 //-------------------------------------------------------------
      const allVideogames=useSelector((state)=> state.videogames);
      var pageNumber=useSelector((state)=> state.pageNumber);
+     var searchName=useSelector((state)=> state.searchName);
+     var notModifiedPageNumber=useSelector((state)=> state.notModifiedPageNumber);
      var backPageNumber=useSelector((state)=>state.backPageNumber)
      var initialPageNumber=useSelector((state)=>state.initialPageNumber)
+     var palabra="hola";
      console.log("mis videojuegos",allVideogames) 
 
      const [currentPage,setCurrentPage]= useState(1);
      const [videogamesPerPage,setVideogamesPerPage]= useState(9);
      var indexOfLastVideogame;
-     if(pageNumber===1){
-      indexOfLastVideogame = pageNumber * videogamesPerPage;
+     if(pageNumber===1){ 
+        if(searchName!==""){
+          indexOfLastVideogame = pageNumber * videogamesPerPage;
+        }else{
+          indexOfLastVideogame = notModifiedPageNumber * videogamesPerPage;
+        }     
      }
      if(pageNumber!==1&&backPageNumber===false){
       indexOfLastVideogame = currentPage * videogamesPerPage;
      }
      if(backPageNumber===true){
-      indexOfLastVideogame = initialPageNumber * videogamesPerPage;
+      indexOfLastVideogame = notModifiedPageNumber * videogamesPerPage;
      }
      const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage; 
      const currentVidegames = allVideogames.slice(indexOfFirstVideogame,indexOfLastVideogame)
@@ -54,8 +61,9 @@ export default function Home() {
       dispatch(getPageNumber(0))
     }
     setCurrentPage(page);
-    dispatch(getInitialPageNumber(page))
-    dispatch(getBackPage(false))
+    dispatch(getInitialPageNumber(page));
+    dispatch(getNotModifiedPageNumber(page))
+    dispatch(getBackPage(false));
 
   }; 
 

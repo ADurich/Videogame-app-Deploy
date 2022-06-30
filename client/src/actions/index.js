@@ -133,3 +133,10 @@ export function getFilteredPlatforms(platform) {
     return dispatch({type:"GET_FILTERED_PLATFORMS",payload:videogamesPlatforms.data});
   };
 }
+
+export function getNotModifiedPageNumber(notModifiedPageNumber) {     
+   return async function(dispatch){
+
+    return dispatch({type:"GET_NOT_MODIFIED_PAGE_NUMBER",payload:notModifiedPageNumber});
+  };
+}

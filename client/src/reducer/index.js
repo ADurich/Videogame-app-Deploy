@@ -10,7 +10,8 @@ const initialState = {
     initialPageNumber:1,
     backPageNumber:false,
     videogamesPlatforms: [],
-    algo:"",
+    searchName:"",
+    notModifiedPageNumber:1,
 };
 
 
@@ -70,7 +71,8 @@ function rootReducer(state = initialState, action) {
 
             return{
                 ...state, 
-                videogames:searchbarGames 
+                videogames:searchbarGames,
+                searchName:action.payload 
             }
 
         case "POST_VIDEOGAME":
@@ -110,7 +112,9 @@ function rootReducer(state = initialState, action) {
 
                     return {                                        
                         ...state,
-                        videogames: videogamesFiltered, 
+                        videogames: videogamesFiltered,
+                        searchName:"genre", 
+
                     }
 
         
@@ -119,7 +123,8 @@ function rootReducer(state = initialState, action) {
                         const orderCreated = action.payload === 'created' ? state.allVideogames.filter(el => el.source===null) : state.allVideogames.filter(el => el.source==='api')
                         return {                                                                              
                             ...state,
-                            videogames: action.payload === 'all' ? state.allVideogames : orderCreated
+                            videogames: action.payload === 'all' ? state.allVideogames : orderCreated,
+                            searchName:"created",
                             
                         }
         case "GET_DETAILS":
@@ -175,8 +180,14 @@ function rootReducer(state = initialState, action) {
             return{
                 ...state,
                 videogames:filteredPlatforms,
+                searchName:"platform",
 
-            }                      
+            } 
+        case 'GET_NOT_MODIFIED_PAGE_NUMBER':
+            return{
+                ...state, 
+                notModifiedPageNumber:action.payload, 
+            }                         
 
     	default:
     		return state;

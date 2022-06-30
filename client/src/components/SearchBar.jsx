@@ -1,7 +1,7 @@
 import React from 'react';
 import {useState} from 'react';
-import { useDispatch } from "react-redux";
-import { getNameVideogames,getPageNumber,getInitialPageNumber } from '../actions';
+import { useDispatch,useSelector } from "react-redux";
+import { getNameVideogames,getPageNumber,getInitialPageNumber,getBackPage } from '../actions';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -48,6 +48,7 @@ export default function SearchBar (){
 
     const dispatch = useDispatch() 
     var name;
+    var searchName=useSelector((state)=> state.searchName);
 
       function handleInputChange(e){
       e.preventDefault() 
@@ -55,6 +56,8 @@ export default function SearchBar (){
       dispatch(getNameVideogames(name))
       dispatch(getPageNumber(1))
       dispatch(getInitialPageNumber(1));
+      dispatch(getBackPage(false));
+
 
     }
     
@@ -93,6 +96,7 @@ export default function SearchBar (){
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
+                      //value= {searchName}
                       onChange = {(e) => handleInputChange(e)}
                     />
                   </Search>
