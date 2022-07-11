@@ -14,7 +14,6 @@ export default function Paginado ({videogamesPerPage, allVideogames,paginado}) {
 
     const handleChange = (event: SelectChangeEvent,page:number) => {
         paginado(page)
-
         };   
 
         return(

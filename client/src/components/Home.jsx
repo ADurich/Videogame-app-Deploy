@@ -19,7 +19,9 @@ export default function Home() {
    const dispatch = useDispatch();
 
      useEffect(() => {
+      if(!notVideogames){
        dispatch(getVideogames());
+      }
    }, []);
 
 //-------------------------------------------------------------
@@ -29,7 +31,7 @@ export default function Home() {
      var notModifiedPageNumber=useSelector((state)=> state.notModifiedPageNumber);
      var backPageNumber=useSelector((state)=>state.backPageNumber)
      var initialPageNumber=useSelector((state)=>state.initialPageNumber)
-     var palabra="hola";
+     var notVideogames=useSelector((state)=>state.notVideogames)
      console.log("mis videojuegos",allVideogames) 
 
      const [currentPage,setCurrentPage]= useState(1);
@@ -44,13 +46,14 @@ export default function Home() {
      }
      if(pageNumber!==1&&backPageNumber===false){
       indexOfLastVideogame = currentPage * videogamesPerPage;
+
      }
-     if(backPageNumber===true){
+     if(backPageNumber===true&&pageNumber!==1){
       indexOfLastVideogame = notModifiedPageNumber * videogamesPerPage;
      }
      const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage; 
      const currentVidegames = allVideogames.slice(indexOfFirstVideogame,indexOfLastVideogame)
-     //console.log("mis actuales videojuegos",currentVidegames)  
+       
   
 //-------------------------------------------------------------
 
@@ -66,6 +69,7 @@ export default function Home() {
     dispatch(getBackPage(false));
 
   }; 
+
 
   return (
 
@@ -88,8 +92,8 @@ export default function Home() {
             allVideogames={allVideogames.length} 
             paginado={paginado}
           />
-      {/*----------------CREAR PERSONAJE----------------------------*/}    
-          <Link id="avv" to="/CreateVideogame"><Button sx={{mt:1,mb:3}} variant="contained" color="secondary">Crear videojuego</Button></Link>    
+      {/*----------------CREAR VIDEOJUEGO----------------------------*/}    
+          <Link to="/CreateVideogame"><Button sx={{mt:1,mb:3}} variant="contained" color="secondary">Crear videojuego</Button></Link>    
 
       {/*----------------CARDS-----------------------------------*/}
 

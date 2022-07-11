@@ -12,6 +12,7 @@ const initialState = {
     videogamesPlatforms: [],
     searchName:"",
     notModifiedPageNumber:1,
+    notVideogames:false,
 };
 
 
@@ -106,15 +107,14 @@ function rootReducer(state = initialState, action) {
              
         case "FILTER_BY_GENRE":
 
-                    const myVideogames = state.allVideogames
+                    const myVideogames =  state.allVideogames
 
                     const videogamesFiltered= action.payload === 'all' ? myVideogames : myVideogames.filter(el=> (el.genres.map(el=>{return el.name})).includes(action.payload))
 
                     return {                                        
                         ...state,
-                        videogames: videogamesFiltered,
+                        videogames:videogamesFiltered,
                         searchName:"genre", 
-
                     }
 
         
@@ -188,6 +188,11 @@ function rootReducer(state = initialState, action) {
                 ...state, 
                 notModifiedPageNumber:action.payload, 
             }                         
+        case 'GET_NOT_VIDEOGAMES':
+            return{
+                ...state, 
+                notVideogames:action.payload, 
+            }
 
     	default:
     		return state;

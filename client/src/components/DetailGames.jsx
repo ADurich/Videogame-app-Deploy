@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail,getInitialPageNumber,getBackPage } from "../actions/index";
+import { getDetail,getInitialPageNumber,getBackPage,noVideogamesLoaded } from "../actions/index";
 import { useEffect } from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -22,6 +22,7 @@ const myVideogame = useSelector((state) => state.details);
 function handleChangePageNumber(){
       //dispatch(getInitialPageNumber(1)); 
       dispatch(getBackPage(true));
+      dispatch(noVideogamesLoaded(true));
    }
 
 return (
@@ -69,7 +70,7 @@ return (
          })}
         
         <Link to= '/home'>
-            <Button variant="contained" onClick={handleChangePageNumber}>Volver al inicio</Button>
+            <Button variant="contained" onClick={handleChangePageNumber}>Volver</Button>
         </Link>
     </div>
 )}

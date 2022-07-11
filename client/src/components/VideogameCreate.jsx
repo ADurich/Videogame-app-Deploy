@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {postVideogame,getGenres,getPlatforms,getInitialPageNumber} from '../actions/index'
+import {postVideogame,getGenres,getPlatforms,getInitialPageNumber,noVideogamesLoaded,getBackPage} from '../actions/index'
 import { useDispatch, useSelector} from "react-redux";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -33,18 +33,7 @@ const MenuProps = {
   },
 };
 
-//sacar los console log
-//especificar en fecha de creacion el formato de la fecha, sino no funciona
-//ordenar las plataformas y generos con sort
-//el sort con un array numerico es distinto
-//si reutilizo algun sort, quizas puedo usar export/import para traerlos
-//quitar el nombre de app videogames al inicio
-//ver si tambien pongo un buscado en generos y plataformas
-//quizas podria hacer el deploy en otra rama del pi
-//probar nuevamente en el back si puedo traer info de la api con func anonima
-//probar nuevamente el filtro de searchname, pero en el back
-//si tengo ganas cuando hago una busqueda desp de pasar pagina y le hago click, volver al result
-//cambiar los nombres de variables, estan raros
+
 
 
 export default function VideogameCreate(){
@@ -116,17 +105,19 @@ const [genres, setGenres] = React.useState([]);
 
 
 //-------------------------------------------------------------
-
-function handleChangeInitialPageNumber(){
-	  dispatch(getInitialPageNumber(1))  
+function backToPage(){
+    dispatch(getBackPage(true));
+    dispatch(noVideogamesLoaded(true));   
    }
-
 //-------------------------------------------------------------
+
+
 
 const handleSubmit = (event) => {
     event.preventDefault();
     console.log(newVideogame)
     dispatch(postVideogame(newVideogame));
+    dispatch(noVideogamesLoaded(false));
 
                     alert("Videojuego creado");
                     setNewVideogame({
@@ -268,8 +259,8 @@ const handleSubmit = (event) => {
 			    </ThemeProvider>
 	            
 
-	            <Link to= '/home'>
-            		<Button variant="contained" onClick={handleChangeInitialPageNumber}>Volver</Button>
+	            <Link to= '/Home'>
+            		<Button variant="contained" onClick={backToPage()}>Volver</Button>
         		</Link>  
          </>   
 		)
