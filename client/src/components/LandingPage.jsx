@@ -7,7 +7,6 @@ export default function LandingPage(){
 	return( 
 
 		<div className="backgroun">
-			<h1>Videogames app</h1>
 			<header className="container">
 				<div className="row">
 					<div className="col-sm-2 my-4">
