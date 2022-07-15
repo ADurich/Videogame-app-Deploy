@@ -180,7 +180,7 @@ router.post('/videogame',async(req,res)=>{
     platforms,
     genre,
     img,
-    released,
+    //released,
 
   }=req.body
 
@@ -189,7 +189,7 @@ router.post('/videogame',async(req,res)=>{
     description,
     platforms,
     img,
-    released,
+    //released,
   })
   
   Array.isArray(genre)?
@@ -308,3 +308,44 @@ router.get('/filteredPlatform/:name',async(req,res)=>{
 
 module.exports = router;
 
+/*const infoFromApi=async()=>{
+
+  var infoUrl;
+  var apiInfo;
+  //var apiInfoTotal=[];
+
+  for(let i=1;i<=1;i++){ 
+
+    infoUrl=await axios.get(`https://api.rawg.io/api/games?page=${i}&&key=${API_KEY}`)
+    apiInfo=await infoUrl.data.results.map((el)=>{
+
+      
+      
+          return{
+            id: el.id,
+            name: el.name,
+            description:'sdasd',
+            platforms: el.platforms.map(el=>el.platform.name),  
+            img:el.background_image,
+            genres: el.genres.map(el=>el.name),
+            released:el.released,
+            source:'api',
+          }         
+  });
+    
+    //apiInfoTotal=apiInfoTotal.concat(apiInfo);
+  }
+
+  return apiInfo;
+};
+
+const getAllCharacters=async()=>{
+  const apiInfo=await infoFromApi();
+  const dbInfo=await infoFromDb();
+  const infoTotal=apiInfo.concat(dbInfo);
+  return infoTotal;
+}
+
+(async function(){
+  videogamesList=await getAllCharacters();
+})();*/

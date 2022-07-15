@@ -44,7 +44,7 @@ function rootReducer(state = initialState, action) {
                   separateWords=el.name.split(" ");
                   numberOfWords=separateWords.length;
                   checkElement=false;
-                  let separateDate=el.released.split("-")
+                  //let separateDate=el.released.split("-")
 
                   for (let i=0; i<numberOfWords; i++) {
                     joinWords.push(separateWords.join(" "))
@@ -61,9 +61,9 @@ function rootReducer(state = initialState, action) {
                     }
                   })  
 
-                  if(separateDate[0]===searchName&&!checkElement){
+                  /*if(separateDate[0]===searchName&&!checkElement){
                     videogameName.push(el)
-                  }   
+                  } */  
                 })
 
               videogameName.length ?
@@ -193,6 +193,11 @@ function rootReducer(state = initialState, action) {
                 ...state, 
                 notVideogames:action.payload, 
             }
+        case 'GET_INITIALIZE_VIDEOGAMES':
+            return{
+                ...state, 
+                videogames:action.payload, 
+            }    
 
     	default:
     		return state;

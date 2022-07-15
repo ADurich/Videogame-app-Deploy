@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {postVideogame,getGenres,getPlatforms,getInitialPageNumber,noVideogamesLoaded,getBackPage} from '../actions/index'
+import {postVideogame,getGenres,getPlatforms,getInitialPageNumber,noVideogamesLoaded,getBackPage,initializeVideogames} from '../actions/index'
 import { useDispatch, useSelector} from "react-redux";
+import {useHistory} from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +20,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const theme = createTheme();
 
@@ -39,6 +45,7 @@ const MenuProps = {
 export default function VideogameCreate(){
 
 	const dispatch = useDispatch();
+	let history=useHistory();
 
 	useEffect(() => {
        dispatch(getGenres()); 
@@ -54,16 +61,16 @@ export default function VideogameCreate(){
         platforms:[],
         genre:[],
         img:"",
-        released:""
+        //released:""
     })
-	
+   const [open,setOpen] = useState(false)	
 
 //-------------------------------------------------------------
     function handleChange(event){
        setNewVideogame({
            ...newVideogame,
            [event.target.name] : event.target.value
-       })      
+       })    
    }
 
 //-------------------------------------------------------------
@@ -75,13 +82,12 @@ const [platform, setPlatform] = React.useState([]);
 	      target: { value },
 	    } = event;
 	    setPlatform(
-	      // On autofill we get a stringified value.
 	      typeof value === 'string' ? value.split(',') : value,
 	    );
-	    console.log(event.target.value)
         setNewVideogame({
             ...newVideogame,
-            platforms: [...newVideogame.platforms,event.target.value[(event.target.value.length)-1]] 
+            //platforms: [...newVideogame.platforms,event.target.value[(event.target.value.length)-1]] 
+            platforms: event.target.value
         })
 	  };
 //-------------------------------------------------------------
@@ -92,44 +98,57 @@ const [genres, setGenres] = React.useState([]);
 	      target: { value },
 	    } = event;
 	    setGenres(
-	      // On autofill we get a stringified value.
 	      typeof value === 'string' ? value.split(',') : value,
 	    );
 
             setNewVideogame({
                 ...newVideogame,
-                genre: [...newVideogame.genre,event.target.value[(event.target.value.length)-1]]
-                             
+                //genre: [...newVideogame.genre,event.target.value[(event.target.value.length)-1]]
+             	genre: event.target.value
                        })                  
 	   };	  
 
 
 //-------------------------------------------------------------
 function backToPage(){
-    dispatch(getBackPage(true));
+    dispatch(getBackPage(false));
     dispatch(noVideogamesLoaded(true));   
    }
 //-------------------------------------------------------------
 
+const handleClose = () => {
+    setOpen(false);
+  };
 
+//-------------------------------------------------------------
 
 const handleSubmit = (event) => {
     event.preventDefault();
     console.log(newVideogame)
-    dispatch(postVideogame(newVideogame));
-    dispatch(noVideogamesLoaded(false));
+    
+  
 
-                    alert("Videojuego creado");
-                    setNewVideogame({
-                        name: "",
-                        description: "",
-                        genre:[],
-                        platforms:[],
-                        img:"",
-                        released:""
-                    });
-                    setPlatform([]);
-                    setGenres([]);
+    if(newVideogame.name!==""&&newVideogame.description!==""&&newVideogame.genre.length>0&&newVideogame.genre.length>0){
+    	dispatch(postVideogame(newVideogame));
+	    dispatch(noVideogamesLoaded(false));
+	    dispatch(initializeVideogames());
+
+	                    setNewVideogame({
+	                        name: "",
+	                        description: "",
+	                        genre:[],
+	                        platforms:[],
+	                        img:"",
+	                        //released:""
+	                    });
+	                    setPlatform([]);
+	                    setGenres([]);
+	                    
+	   history.push({pathname: '/Home'}) 
+    }else{
+    	setOpen(true);
+    }
+                   
   };
 
 	return(
@@ -193,18 +212,7 @@ const handleSubmit = (event) => {
 			              value= {newVideogame.img}
                           onChange={(e)=>handleChange(e)}
 			            />
-			            <TextField
-			              margin="normal"
-			              required
-			              fullWidth
-			              name="released"
-			              label="Fecha de creación"
-			              type="text"
-			              id="password"
-			              autoComplete="current-password"
-			              value= {newVideogame.released}
-                          onChange={(e)=>handleChange(e)}
-			            />
+			            
 			            <FormControl fullWidth margin="normal">
 					        <InputLabel id="demo-multiple-checkbox-label">Plataformas</InputLabel>
 					        <Select
@@ -245,22 +253,37 @@ const handleSubmit = (event) => {
 					          ))}
 					        </Select>
 					    </FormControl>
-			            <Button
+					    <Button
 			              type="submit"
 			              fullWidth
 			              variant="contained"
 			              sx={{ mt: 3, mb: 2 }}
 			            >
 			              Crear
-			            </Button>			            
+			            </Button> 			            
 			          </Box>
 			        </Box>
 			      </Container>
 			    </ThemeProvider>
 	            
+			    <Dialog
+			        open={open}
+			        onClose={handleClose}
+			        aria-labelledby="alert-dialog-title"
+			        aria-describedby="alert-dialog-description"
+			      >
+			        <DialogContent>
+			          <DialogContentText id="alert-dialog-description">
+			            Completar los campos requeridos
+			          </DialogContentText>
+			        </DialogContent>
+			        <DialogActions>
+			          <Button onClick={handleClose}>Cerrar</Button>
+			        </DialogActions>
+			     </Dialog>
 
 	            <Link to= '/Home'>
-            		<Button variant="contained" onClick={backToPage()}>Volver</Button>
+            		<Button variant="contained" onClick={backToPage}>Volver</Button>
         		</Link>  
          </>   
 		)

@@ -74,8 +74,7 @@ export default function Home() {
   return (
 
       <div>   
-
-      {/*----------------SEARCHBAR------------------------------*/}    
+  
           <SearchBar />      
       {/*----------------GÉNEROS------------------------------------*/}    
           <Genre />
@@ -97,7 +96,9 @@ export default function Home() {
 
       {/*----------------CARDS-----------------------------------*/}
 
-          {allVideogames.length>0?
+      {allVideogames.length>0 &&
+        
+        <>{allVideogames.length>0?
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                   {currentVidegames.map((el) => { 
@@ -115,7 +116,9 @@ export default function Home() {
 
               {/*<footer>
                    &copy; 2022
-                </footer>*/}             
+                </footer>*/}
+        </>  
+      }
       </div>
   );
 }

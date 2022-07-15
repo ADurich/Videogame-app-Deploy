@@ -147,3 +147,10 @@ export function noVideogamesLoaded(notVideogames) {
     return dispatch({type:"GET_NOT_VIDEOGAMES",payload:notVideogames});
   };
 }
+
+export function initializeVideogames() {     
+   return async function(dispatch){
+
+    return dispatch({type:"GET_INITIALIZE_VIDEOGAMES",payload:[]});
+  };
+}

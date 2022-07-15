@@ -48,6 +48,7 @@ export default function SearchBar (){
 
     const dispatch = useDispatch() 
     var name;
+    var pageNumber=useSelector((state)=> state.pageNumber);
     var searchName=useSelector((state)=> state.searchName);
 
       function handleInputChange(e){
@@ -96,7 +97,7 @@ export default function SearchBar (){
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ 'aria-label': 'search' }}
-                      //value= {searchName}
+                      value= {searchName!=='genre'&&searchName!=='platform' ? searchName : ""}
                       onChange = {(e) => handleInputChange(e)}
                     />
                   </Search>
