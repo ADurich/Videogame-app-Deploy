@@ -30,7 +30,7 @@ export default function Home() {
      var searchName=useSelector((state)=> state.searchName);
      var notModifiedPageNumber=useSelector((state)=> state.notModifiedPageNumber);
      var backPageNumber=useSelector((state)=>state.backPageNumber)
-     var initialPageNumber=useSelector((state)=>state.initialPageNumber)
+     //var initialPageNumber=useSelector((state)=>state.initialPageNumber)
      var notVideogames=useSelector((state)=>state.notVideogames)
      console.log("mis videojuegos",allVideogames) 
 
@@ -97,7 +97,7 @@ export default function Home() {
       {/*----------------CARDS-----------------------------------*/}
 
       {allVideogames.length>0 &&
-        
+
         <>{allVideogames.length>0?
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>

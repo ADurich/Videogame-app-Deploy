@@ -130,7 +130,7 @@ export function getFilteredPlatforms(platform) {
 
     var videogamesPlatforms =await axios("/filteredPlatform/"+platform);
 
-    return dispatch({type:"GET_FILTERED_PLATFORMS",payload:videogamesPlatforms.data});
+    return dispatch({type:"GET_FILTERED_PLATFORMS",payload:[videogamesPlatforms.data,platform]});
   };
 }
 

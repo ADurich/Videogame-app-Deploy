@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getPageNumber,getInitialPageNumber,getOrder} from "../actions/index";
+import { getPageNumber,getInitialPageNumber,getOrder,getBackPage} from "../actions/index";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -17,8 +17,9 @@ export default function Order(){
     const handleChange = (event: SelectChangeEvent) => {
     	setOrder(event.target.value);
     	dispatch(getOrder(event.target.value));
-    	dispatch(getPageNumber(1))
-    	dispatch(getInitialPageNumber(1))
+    	dispatch(getPageNumber(0));
+    	dispatch(getBackPage(false));
+    	//dispatch(getInitialPageNumber(1))
     };
 
 	const dispatch = useDispatch();

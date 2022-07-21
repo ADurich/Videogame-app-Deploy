@@ -13,6 +13,7 @@ const initialState = {
     searchName:"",
     notModifiedPageNumber:1,
     notVideogames:false,
+    filterVideogames:{}
 };
 
 
@@ -108,13 +109,18 @@ function rootReducer(state = initialState, action) {
         case "FILTER_BY_GENRE":
 
                     const myVideogames =  state.allVideogames
-
                     const videogamesFiltered= action.payload === 'all' ? myVideogames : myVideogames.filter(el=> (el.genres.map(el=>{return el.name})).includes(action.payload))
+                    var videogamesFilteredTwice;
+
+                    if(state.filterVideogames.platform){
+                       videogamesFilteredTwice= action.payload === 'all' ? state.filterVideogames.platform : state.filterVideogames.platform.filter(el=> (el.genres.map(el=>{return el.name})).includes(action.payload))
+                    }
 
                     return {                                        
                         ...state,
-                        videogames:videogamesFiltered,
+                        videogames:!videogamesFilteredTwice ? videogamesFiltered: videogamesFilteredTwice,
                         searchName:"genre", 
+                        filterVideogames:{...state.filterVideogames,genre:videogamesFiltered},
                     }
 
         
@@ -175,12 +181,19 @@ function rootReducer(state = initialState, action) {
 
             }  
         case "GET_FILTERED_PLATFORMS":
-            const filteredPlatforms=action.payload;
+            var filteredPlatforms=action.payload[0];
+
+            var videogamesFilteredTwicee;
+
+            if(state.filterVideogames.genre){
+                videogamesFilteredTwicee= action.payload[1] === 'all' ? state.filterVideogames.genre : state.filterVideogames.genre.filter(el=> (el.platforms.map(el=>{return el})).includes(action.payload[1]))
+            }
 
             return{
                 ...state,
-                videogames:filteredPlatforms,
+                videogames:!videogamesFilteredTwicee ? filteredPlatforms: videogamesFilteredTwicee,
                 searchName:"platform",
+                filterVideogames:{...state.filterVideogames,platform:filteredPlatforms}
 
             } 
         case 'GET_NOT_MODIFIED_PAGE_NUMBER':
