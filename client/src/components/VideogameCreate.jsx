@@ -67,9 +67,13 @@ export default function VideogameCreate(){
 
 //-------------------------------------------------------------
     function handleChange(event){
+    	let inputValue=event.target.value;
+    	if(event.target.name==='name'){
+    		inputValue=inputValue.charAt(0).toUpperCase()+inputValue.slice(1)
+    	}
        setNewVideogame({
            ...newVideogame,
-           [event.target.name] : event.target.value
+           [event.target.name] : inputValue
        })    
    }
 
@@ -128,7 +132,7 @@ const handleSubmit = (event) => {
     
   
 
-    if(newVideogame.name!==""&&newVideogame.description!==""&&newVideogame.genre.length>0&&newVideogame.genre.length>0){
+    if(newVideogame.name!==""&&newVideogame.description!==""&&newVideogame.platforms.length>0&&newVideogame.genre.length>0){
     	dispatch(postVideogame(newVideogame));
 	    dispatch(noVideogamesLoaded(false));
 	    dispatch(initializeVideogames());

@@ -26,6 +26,7 @@ export default function Genre(){
    }, []);
 
      const allGenres=useSelector((state)=> state.genres);
+     const sortGenres=allGenres.sort();
 
   return(
 
@@ -42,7 +43,7 @@ export default function Genre(){
 	        >
 	          {/*<MenuItem value=""><em>Ninguno</em></MenuItem>*/}
 	          <MenuItem value={"all"}>Todos</MenuItem>
-	          {allGenres.map((el) => { 
+	          {sortGenres.map((el) => { 
                     return (
                           <MenuItem value={el} key={el}>{el}</MenuItem>                
                    );

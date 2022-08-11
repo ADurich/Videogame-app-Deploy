@@ -61,12 +61,7 @@ export default function SearchBar (){
 
 
     }
-    
 
-    /*function handleSubmit(e){
-        e.preventDefault() 
-        dispatch(getNameVideogames(name))
-    }*/
 
     return (
         <div>           
@@ -88,7 +83,6 @@ export default function SearchBar (){
                     component="div"
                     sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                   >
-                    Rawg Video Games
                   </Typography>
                   <Search>
                     <IconButton aria-label="delete" /*onClick={(e) => handleSubmit(e)} */>

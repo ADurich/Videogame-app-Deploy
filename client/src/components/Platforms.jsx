@@ -26,6 +26,7 @@ export default function Platforms(){
    }, []);
 
      const allPlatforms=useSelector((state)=> state.videogamesPlatforms);
+     const sortPlatforms=allPlatforms.sort();
 
   return(
 
@@ -42,7 +43,7 @@ export default function Platforms(){
 	        >
 	          {/*<MenuItem value=""><em>Ninguno</em></MenuItem>*/}
 	          <MenuItem value={"all"}>Todos</MenuItem>
-	          {allPlatforms.map((el) => { 
+	          {sortPlatforms.map((el) => { 
                     return (
                           <MenuItem value={el} key={el}>{el}</MenuItem>                
                    );
